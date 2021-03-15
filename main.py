@@ -1,11 +1,3 @@
-
-
-# SDK
-# software development kit
-# import line official SDK, line聊天機器人開發套件
-
-
-
 from flask import Flask, request, abort
 
 from linebot import (
@@ -18,10 +10,12 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+from manage.settings import CHANNEL_ACCESS_TOKEN, CHANNEL_SECRET
+
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('pRmciVeQZZjKIyuDPdcdBXav7ddMtS+HpQ9QlxlKn8qAb53whkMWPvjqAp6kXRohaTJRYmDnGSfVjH//1iRnMnBUSDP8qgTop1OGrTgTXFJEKjKmkurAwUmsQJHZ9mY6yrl2UDAJsGI3g7ANoytJtAdB04t89/1O/w1cDnyilFU=') # YOUR_CHANNEL_ACCESS_TOKEN
-handler = WebhookHandler('0fb25e310330caebb414234d728bcb20') # YOUR_CHANNEL_SECRET' 
+line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)  # YOUR_CHANNEL_ACCESS_TOKEN
+handler = WebhookHandler(CHANNEL_SECRET)  # YOUR_CHANNEL_SECRET'
 
 
 @app.route("/callback", methods=['POST'])
@@ -51,5 +45,5 @@ def handle_message(event):
         TextSendMessage(text='你吃飯了嗎?'))
 
 
-if __name__ == "__main__": # 當user載入SDK時, 有需要才執行, 而不是一載入就執行程式
+if __name__ == "__main__":  # 當user載入SDK時, 有需要才執行, 而不是一載入就執行程式
     app.run()
